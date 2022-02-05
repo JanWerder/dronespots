@@ -1,0 +1,57 @@
+{
+  "main": {
+    "title": "Drone Spots 🇪🇺"
+  },
+  "about": {
+    "title": "About",
+    "text": "Drone Spots is a platform to share your best drone flying spots all over Europe.<br> You can add a spot to the map, so others can find them, after you login."
+  },
+  "spot": {
+    "title": "Spot",
+    "placeholder": "Click on a marker on the map to view a drone spot",
+    "navigate": "Navigate to this spot"
+  },
+  "add": {
+    "title": "Add",
+    "image": "Shot of the spot",
+    "position": "Position",
+    "pick": "Pick from map",
+    "lat": "Latitude",
+    "lng": "Longitude",
+    "description": "Description",
+    "descriptionLong": "Describe the location in a few words.",
+    "foottraffic": {
+      "0": "low",
+      "1": "medium",
+      "2": "high",
+      "title": "Foot traffic level"
+    },
+    "submit": "Submit",
+    "legal": "I have verified that this spot is legal to fly at.",
+    "anonymous": "Hide my name for this spot (not required)",
+    "createdBy": "created by",
+    "loginFirst": "To submit a new spot, you have to login first."
+  },
+  "login": {
+    "title": "Login",
+    "buttonGoogle": "Login with Google",
+    "email": "Your Email",
+    "register": "Register",
+    "loggedIn": "Logged in as @{displayname}",
+    "explaination": "You can now add dronespots on the \"Add\" tab",
+    "displayname": "Your Displayname"
+  },
+  "messages": {
+    "success": "Success",
+    "error": "Error",
+    "submittedDronespots": "Submitted new Dronespot.",
+    "notsignedin": "Not signed in. Sign in first.",
+    "emailalreadyregistered": "Email already registered.",
+    "registrationsuccessful": "Registration successful.",
+    "tooClose": "There is already a spot too close by.",
+    "isNoImage": "The submitted file is not an Image."
+  },
+  "map": {
+    "intro": "This site uses functional cookies to work."
+  }
+}

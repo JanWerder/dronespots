@@ -1,0 +1,173 @@
+@font-face {
+  font-family: "Open Sans Semi";
+  src: url("fonts/OpenSans-SemiBold.woff2") format("woff2"),
+    url("fonts/OpenSans-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/OpenSans-Regular.woff2") format("woff2"),
+    url("fonts/OpenSans-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans Semi italic";
+  src: url("fonts/OpenSans-SemiBoldItalic.woff2") format("woff2"),
+    url("fonts/OpenSans-SemiBoldItalic.woff") format("woff");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans italic";
+  src: url("fonts/OpenSans-Italic.woff2") format("woff2"),
+    url("fonts/OpenSans-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+p, td, div, h3, button {
+  font-family: "Open Sans";
+}
+
+.mainView {
+  width: 100%;
+  height: 100%;
+}
+
+.mapView {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#app {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.sideBar,
+* {
+  z-index: 3;
+}
+
+.mapboxgl-marker:hover {
+  filter: drop-shadow(0px -4px 6px black);
+}
+
+.marker-marked {
+  filter: hue-rotate(280deg) !important;
+}
+
+.titleRule {
+  margin: 0.5em -1em -0.5em -1em;
+  background-color: #fff;
+  min-height: 0.5em;
+  border: 0px white solid;
+}
+
+.sidebarContent {
+  margin: -1.5em;
+}
+
+.m-0 {
+  margin: calc(var(--space-size) * 0) !important;
+}
+
+select {
+  background-color: #fff !important;
+}
+
+.minFullWidth {
+  min-width: 100%;
+}
+
+.spotImage {
+  border: white 0.25em solid;
+}
+
+.slideout-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0vh;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+  /* backdrop-filter: blur(15px) grayscale(0.75); */
+  background-color: whitesmoke;
+  padding: 1em;
+  border: white 0.5em solid;
+}
+
+@media screen and (max-width: 760px) {
+  .slideout-menu-width {
+    width: 75vw;
+  }
+}
+
+@media screen and (min-width: 760px) and (max-width: 780px) {
+  .slideout-menu-width {
+    width: 50vw;
+  }
+}
+
+@media screen and (min-width: 780px) {
+  .slideout-menu-width {
+    width: 25vw;
+  }
+}
+
+.slideout-menu:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-width: 30px 30px 0px 0px;
+  border-style: solid;
+  border-color: #fff transparent transparent #fff;
+}
+
+.slideout-menu-left {
+  left: 0;
+}
+
+.slideout-menu-right {
+  right: 0;
+}
+
+.slideout-panel {
+  position: relative;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
+
+.toggle-button {
+  float: right;
+  margin: 0.5em;
+}
+
+.navigateButton {
+  margin-top: 1em;
+}
