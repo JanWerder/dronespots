@@ -4,12 +4,45 @@
 
 # Backend
 
-The backend requires several environment variables to be set on the destination server.
+The backend requires variables to be set in the application.yaml.
 
-```custom.dronespots.db.password```: The password of the PostgresSQL user.
+```
+custom:
+  db:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dronespots
+    user: dronespots
+    password: [password]
+  oauth:
+    clientId: [oAuthClientId]
+    clientSecret: [oAuthClientSecret]
+  mapbox:
+    accessToken: [mapboxAccessToken]
+  
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+          show_sql: false
+        connection:
+          autocommit: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+          
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate: INFO
 
-```custom.dronespots.mapbox.accessToken```: An Accesstoken for mapbox
+server:
+  port : 5090
 
-```custom.dronespots.oauth.clientSecret```: The client secret of the OAuth2 Google client.
+```
 
-```custom.dronespots.oauth.clientId```: The client id of the OAuth2 Google client.
+You can then start the backend with the additional ```--spring.config.location==file:/your.yaml``` parameter to load your configuration.
