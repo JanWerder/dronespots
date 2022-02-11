@@ -1,0 +1,40 @@
+name: Deploy
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  Build-And-Upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://npm.pkg.github.com/
+      - run: |
+          cd frontend
+          npm install
+      - run: |
+          cd frontend
+          npm run build    
+      - name: Add SSH Key
+        shell: bash
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir ~/.ssh
+          echo "$DEPLOY_SSH_KEY" > ~/.ssh/gh_actions_key
+          chmod 400 ~/.ssh/gh_actions_key
+      - name: Deploy Files
+        shell: bash
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
+        run: |
+          cd frontend/dist/app
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no $DEPLOYMENT_USER@$DEPLOY_SSH_KEY "rm -f -r /var/www/dronespots && mkdir -p /var/www/dronespots"
+          rsync -avz --exclude=".*" -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" . $DEPLOYMENT_USER@$DEPLOY_SSH_KEY:/var/www/dronespots
