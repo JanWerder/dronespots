@@ -178,7 +178,7 @@ public class DronespotReceiver  implements EnvironmentAware{
 		return q.getResultList().isEmpty();
 	}
 
-	@GetMapping("/api/mapaccesstoken")
+	@GetMapping("/mapaccesstoken")
 	@Transactional
 	public ResponseEntity getMapAccessToken() {
 
