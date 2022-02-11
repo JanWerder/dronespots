@@ -76,9 +76,12 @@ jobs:
       - name: Update
         shell: bash
         run: |
-          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "screen -ls | awk -vFS='\t|[.]' '/dronepots/ {system(\"screen -S \"\$2\" -X quit\")}'"
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "screen -ls | awk -vFS='\t|[.]' '/dronespots/ {system(\"screen -S \"\$2\" -X quit\")}'"
           ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "cp dronespots-backend-build.jar dronespots-backend.jar"
-          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "screen -dmS dronepots"
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "screen -dmS dronespots"
           sleep 3
-          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" 'screen -S dronepots -X stuff "java -jar -Dspring.profiles.active=cloud dronespots-backend.jar^M"'
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" 'screen -S dronespots -X stuff "java -jar -Dspring.profiles.active=cloud dronespots-backend.jar^M"'
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
         working-directory: ./backend
