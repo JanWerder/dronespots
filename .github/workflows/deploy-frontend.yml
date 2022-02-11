@@ -21,7 +21,9 @@ jobs:
         run: |
           npx browserslist@latest --update-db
           npm run build   
-        working-directory: ./frontend 
+        working-directory: ./frontend
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
       - name: Add SSH Key
         shell: bash
         env:
