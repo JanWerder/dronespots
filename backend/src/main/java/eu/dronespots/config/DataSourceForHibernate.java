@@ -25,7 +25,7 @@ public class DataSourceForHibernate {
 		dataSource.setDriverClassName(env.getProperty("custom.dronespots.db.driverClassName"));
 		dataSource.setUrl(env.getProperty("custom.dronespots.db.url"));
 		dataSource.setUsername(env.getProperty("custom.dronespots.db.dbuser"));
-		dataSource.setPassword(env.getProperty("custom.dronespots.dbpassword"));
+		dataSource.setPassword(env.getProperty("custom.dronespots.db.password"));
 		return dataSource;
 	}
 }
