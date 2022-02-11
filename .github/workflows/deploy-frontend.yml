@@ -37,6 +37,6 @@ jobs:
           DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
         run: |
           cd dist/
-          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$DEPLOY_SSH_KEY" "rm -f -r /var/www/dronespots && mkdir -p /var/www/dronespots"
-          rsync -avz --exclude=".*" -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" . "$DEPLOYMENT_USER"@"$DEPLOY_SSH_KEY":/var/www/dronespots
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "rm -f -r /var/www/dronespots && mkdir -p /var/www/dronespots"
+          rsync -avz --exclude=".*" -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" . "$DEPLOYMENT_USER"@"$SERVER_IP":/var/www/dronespots
         working-directory: ./frontend 
