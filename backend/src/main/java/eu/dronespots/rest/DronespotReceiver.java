@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +59,7 @@ import eu.dronespots.util.GenericSemaphore;
 @SuppressWarnings("deprecation")
 @RestController
 @RequestMapping("/api")
-public class DronespotReceiver {
+public class DronespotReceiver  implements EnvironmentAware{
 
 	Logger logger = LoggerFactory.getLogger(DronespotReceiver.class);
 
@@ -72,11 +73,24 @@ public class DronespotReceiver {
 	GenericSemaphore sema;
 
 	@Autowired
-	private Environment env;
+	Environment env;
+
+	@Override
+    public void setEnvironment(final Environment environment) {
+        this.env = environment;
+    }
 
 	private String uri = "https://accounts.google.com/o/oauth2/token";
-	private String client_id = env.getProperty("custom.oauth.clientId");
-	private String client_secret = env.getProperty("custom.oauth.clientSecret");
+	private String client_id = "";
+	private String client_secret = "";
+
+	public String client_id() {
+        return env.getProperty("custom.oauth.clientId");
+    }
+
+	public String client_secret() {
+        return env.getProperty("custom.oauth.clientSecret");
+    }
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/dronespot", method = RequestMethod.POST, consumes = { "multipart/form-data" })
@@ -164,7 +178,7 @@ public class DronespotReceiver {
 		return q.getResultList().isEmpty();
 	}
 
-	@GetMapping("/markers/mapaccesstoken")
+	@GetMapping("/api/mapaccesstoken")
 	@Transactional
 	public ResponseEntity getMapAccessToken() {
 
@@ -224,8 +238,8 @@ public class DronespotReceiver {
 		RestTemplate restTemplate = new RestTemplate();
 
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-		map.add("client_id", client_id);
-		map.add("client_secret", client_secret);
+		map.add("client_id", client_id());
+		map.add("client_secret", client_secret());
 		map.add("redirect_uri", "postmessage");
 		map.add("grant_type", "authorization_code");
 		map.add("code", java.net.URLDecoder.decode(code, StandardCharsets.UTF_8.name()));
@@ -261,7 +275,7 @@ public class DronespotReceiver {
 
 	private GoogleIdToken verifyIdToken(String idToken) throws GeneralSecurityException, IOException {
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
-				.setAudience(Collections.singletonList(client_id)).build();
+				.setAudience(Collections.singletonList(client_id())).build();
 
 		GoogleIdToken verifiedIdToken = verifier.verify(idToken);
 		return verifiedIdToken;
