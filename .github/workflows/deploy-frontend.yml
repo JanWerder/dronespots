@@ -80,7 +80,7 @@ jobs:
           ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "cp dronespots-backend-build.jar dronespots-backend.jar"
           ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "screen -dmS dronespots"
           sleep 3
-          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" 'screen -S dronespots -X stuff "java -jar -Dspring.profiles.active=cloud /home/deployer/dronespots-backend.jar^M"'
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" 'screen -S dronespots -X stuff "java -jar -Dspring.profiles.active=cloud /home/"$DEPLOYMENT_USER"/dronespots-backend.jar --spring.config.location=file:/root/dronespots-prod.yml^M"'
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
