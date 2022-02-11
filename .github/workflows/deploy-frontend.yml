@@ -51,7 +51,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build & Publish Package
-        run: mvn --batch-mode compile
+        run: mvn clean package -ntp
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./backend
