@@ -17,7 +17,9 @@ jobs:
           registry-url: https://npm.pkg.github.com/        
       - run: npm install
         working-directory: ./frontend
-      - run: npm run build   
+      - run: |
+          npx browserslist@latest --update-db
+          npm run build   
         working-directory: ./frontend 
       - name: Add SSH Key
         shell: bash
@@ -33,6 +35,7 @@ jobs:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
         run: |
-          cd frontend/dist/app
+          cd dist/
           ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no $DEPLOYMENT_USER@$DEPLOY_SSH_KEY "rm -f -r /var/www/dronespots && mkdir -p /var/www/dronespots"
           rsync -avz --exclude=".*" -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" . $DEPLOYMENT_USER@$DEPLOY_SSH_KEY:/var/www/dronespots
+        working-directory: ./frontend 
