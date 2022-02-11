@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  Build-And-Upload:
+  Build-And-Upload-Frontend:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -40,3 +40,45 @@ jobs:
           ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "rm -f -r /var/www/dronespots && mkdir -p /var/www/dronespots"
           rsync -avz --exclude=".*" -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" . "$DEPLOYMENT_USER"@"$SERVER_IP":/var/www/dronespots
         working-directory: ./frontend 
+  Build-And-Upload-Backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Build & Publish Package
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./backend
+      - name: Add SSH Key
+        shell: bash
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir ~/.ssh
+          echo "$DEPLOY_SSH_KEY" > ~/.ssh/gh_actions_key
+          chmod 400 ~/.ssh/gh_actions_key
+      - name: Upload Built Jar
+        shell: bash
+        run: |
+          cd target/
+          mv "backend-1.0.jar" "dronespots-backend-build.jar"
+          rsync -avz -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" dronespots-backend-build.jar "$DEPLOYMENT_USER"@"$SERVER_IP":/home/"$DEPLOYMENT_USER"
+        working-directory: ./backend
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
+      - name: Update
+        shell: bash
+        run: |
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "screen -ls | awk -vFS='\t|[.]' '/dronepots/ {system(\"screen -S \"\$2\" -X quit\")}'"
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "cp dronespots-backend-build.jar dronespots-backend.jar"
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" "screen -dmS dronepots"
+          sleep 3
+          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no "$DEPLOYMENT_USER"@"$SERVER_IP" 'screen -S dronepots -X stuff "java -jar -Dspring.profiles.active=cloud dronespots-backend.jar^M"'
+        working-directory: ./backend
