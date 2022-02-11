@@ -1,16 +1,15 @@
 custom:
-  dronespots:
-    db:
-      driverClassName: org.postgresql.Driver
-      url: jdbc:postgresql://localhost:5432/dronespots
-      user: dronespots
-      password: dev
-    oauth:
-      clientId: dronespots
-      clientSecret: dev
-    mapbox:
-      accessToken: dev
-    
+  db:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dronespots
+    user: dronespots
+    password: dev
+  oauth:
+    clientId: dronespots
+    clientSecret: dev
+  mapbox:
+    accessToken: dev
+  
 spring:
   jpa:
     properties:

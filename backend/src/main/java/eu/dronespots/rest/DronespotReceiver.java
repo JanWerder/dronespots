@@ -75,8 +75,8 @@ public class DronespotReceiver {
 	private Environment env;
 
 	private String uri = "https://accounts.google.com/o/oauth2/token";
-	private String client_id = env.getProperty("custom.dronespots.oauth.clientId");
-	private String client_secret = env.getProperty("custom.dronespots.oauth.clientSecret");
+	private String client_id = env.getProperty("custom.oauth.clientId");
+	private String client_secret = env.getProperty("custom.oauth.clientSecret");
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/dronespot", method = RequestMethod.POST, consumes = { "multipart/form-data" })
@@ -169,7 +169,7 @@ public class DronespotReceiver {
 	public ResponseEntity getMapAccessToken() {
 
 		String accessToken = null;
-		accessToken = this.env.getProperty("custom.dronespots.mapbox.accessToken");
+		accessToken = this.env.getProperty("custom.mapbox.accessToken");
 
 		if (accessToken == null) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);

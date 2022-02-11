@@ -22,14 +22,14 @@ public class DataSourceForHibernate {
 	public DataSource dataSource() {
 		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		logger.info("DB driver name: " + env.getProperty("custom.dronespots.db.driverClassName"));
-		logger.info("DB url: " + env.getProperty("custom.dronespots.db.url"));
-		logger.info("DB user: " + env.getProperty("custom.dronespots.db.user"));
+		logger.info("DB driver name: " + env.getProperty("custom.db.driverClassName"));
+		logger.info("DB url: " + env.getProperty("custom.db.url"));
+		logger.info("DB user: " + env.getProperty("custom.db.user"));
 
-		dataSource.setDriverClassName(env.getProperty("custom.dronespots.db.driverClassName"));
-		dataSource.setUrl(env.getProperty("custom.dronespots.db.url"));
-		dataSource.setUsername(env.getProperty("custom.dronespots.db.user"));
-		dataSource.setPassword(env.getProperty("custom.dronespots.db.password"));
+		dataSource.setDriverClassName(env.getProperty("custom.db.driverClassName"));
+		dataSource.setUrl(env.getProperty("custom.db.url"));
+		dataSource.setUsername(env.getProperty("custom.db.user"));
+		dataSource.setPassword(env.getProperty("custom.db.password"));
 		return dataSource;
 	}
 }
