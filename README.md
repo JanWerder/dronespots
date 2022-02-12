@@ -8,7 +8,7 @@
 
 # Frontend
 
-In the build process of the frontend the oAuth Client ID is inserted. You'll need to set the VUE_APP_CLIENT_ID enviroment variable during the build process. For more information see the GitHub Actions section.
+In the build process of the frontend the oAuth Client ID is inserted. You'll need to set the CLIENT_ID enviroment variable during the build process. For more information see the GitHub Actions section.
 
 # Backend
 

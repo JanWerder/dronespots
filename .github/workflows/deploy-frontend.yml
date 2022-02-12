@@ -18,12 +18,13 @@ jobs:
       - run: npm install
         working-directory: ./frontend
       - name: Build
-        env:
-          VUE_APP_CLIENT_ID: ${{ secrets.VUE_APP_CLIENT_ID }}
-        working-directory: ./frontend
         run: |
-          npx browserslist@latest --update-db          
-          npm run build               
+          npx browserslist@latest --update-db
+          echo "CLIENT_ID="$CLIENT_ID"">>.env
+          npm run build   
+        working-directory: ./frontend
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
       - name: Add SSH Key
         shell: bash
         env:

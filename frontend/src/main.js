@@ -12,7 +12,7 @@ import VueCookies from "vue-cookies";
 import VueElementLoading from "vue-element-loading";
 
 const gauthOption = {
-  clientId: process.env.VUE_APP_CLIENT_ID,
+  clientId: process.env.CLIENT_ID,
   scope: "profile email",
   prompt: "select_account",
 };
