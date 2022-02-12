@@ -23,7 +23,7 @@ jobs:
         working-directory: ./frontend
         run: |
           npx browserslist@latest --update-db
-          sed -i 's/CLIENT_ID=dev/CLIENT_ID="$CLIENT_ID"/g' .env
+          sed -i 's/CLIENT_ID=dev/CLIENT_ID=$CLIENT_ID/g' .env
           cat .env
           npm run build               
       - name: Add SSH Key
