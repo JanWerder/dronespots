@@ -1,4 +1,8 @@
-# dronespots
+# Dronespots
+
+Dronespots is a platform to collect drone flying spots in europe. Users can add spots with photos and additional informations.
+
+![image](https://user-images.githubusercontent.com/596986/153719253-248efe77-44af-4902-854d-8d6e1c399ed8.png)
 
 # Stack
 
@@ -8,7 +12,7 @@
 
 # Frontend
 
-In the build process of the frontend the oAuth Client ID is inserted. You'll need to set the CLIENT_ID enviroment variable during the build process. For more information see the GitHub Actions section.
+In the build process of the frontend the oAuth Client ID is inserted. You'll need to set the VUE_APP_CLIENT_ID enviroment variable during the build process. For more information see the GitHub Actions section.
 
 # Backend
 
@@ -64,3 +68,17 @@ DEPLOYMENT_USER - The user which should be used to deploy frontend & backend to 
 DEPLOY_SSH_KEY - The ssh-key to use for the deployment
 SERVER_IP - The IP or domain to which the frontend & backend should be deployed to
 ```
+
+# Caddy File for local development
+
+```
+http://localhost:8800 {
+	reverse_proxy /api/* http://localhost:5090
+	reverse_proxy /* localhost:8080
+	log {
+		output file C:\temp\caddy_dronespots.log
+	}
+}
+```
+
+Port 8080 is the frontend served by ```npm run serve``` and port 5090 is the backend served by tomcat
