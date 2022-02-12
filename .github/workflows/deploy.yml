@@ -20,7 +20,7 @@ jobs:
       - name: Build
         run: |
           npx browserslist@latest --update-db
-          echo "CLIENT_ID="$CLIENT_ID"">>.env
+          sed -i 's/CLIENT_ID=dev/CLIENT_ID="$CLIENT_ID"/g' .env
           npm run build   
         working-directory: ./frontend
         env:
