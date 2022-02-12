@@ -1,8 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import VueCirrus from "vue-cirrus";
-import "vue-cirrus/dist/vue-cirrus.css";
 import Notifications from "vue-notification";
 import VueImg from "v-img";
 import i18n from "./i18n";
@@ -12,13 +10,12 @@ import VueCookies from "vue-cookies";
 import VueElementLoading from "vue-element-loading";
 
 const gauthOption = {
-  clientId: process.env.CLIENT_ID,
+  clientId: process.env.VUE_APP_CLIENT_ID,
   scope: "profile email",
   prompt: "select_account",
 };
 
 Vue.use(GAuth, gauthOption);
-Vue.use(VueCirrus);
 Vue.use(Notifications);
 Vue.use(VueImg);
 Vue.use(SweetModal);
