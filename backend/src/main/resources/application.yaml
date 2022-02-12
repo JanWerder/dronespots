@@ -3,7 +3,7 @@ custom:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/dronespots
     user: dronespots
-    password: 2ApqLjp8TXkkmUb6Ave1
+    password: dev
   oauth:
     clientId: dronespots
     clientSecret: dev
