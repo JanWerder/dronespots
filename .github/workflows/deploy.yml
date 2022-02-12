@@ -18,14 +18,14 @@ jobs:
       - run: npm install
         working-directory: ./frontend
       - name: Build
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        working-directory: ./frontend
         run: |
           npx browserslist@latest --update-db
           sed -i 's/CLIENT_ID=dev/CLIENT_ID="$CLIENT_ID"/g' .env
           cat .env
-          npm run build   
-        working-directory: ./frontend
-        env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          npm run build               
       - name: Add SSH Key
         shell: bash
         env:
