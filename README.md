@@ -1,6 +1,6 @@
 # Dronespots
 
-Dronespots is a platform to collect drone flying spots in europe. Users can add spots with photos and additional informations.
+Dronespots is a platform to collect drone flying spots in europe. Users can add spots with photos and additional information.
 
 ![image](https://user-images.githubusercontent.com/596986/153719253-248efe77-44af-4902-854d-8d6e1c399ed8.png)
 
